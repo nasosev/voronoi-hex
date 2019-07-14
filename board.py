@@ -22,12 +22,13 @@ class Board:
         if SEED is not None:
             np.random.seed(SEED)
 
-        def reflect(u: np.ndarray, a: np.ndarray, c: float) -> np.ndarray:
-            return u - 2 * np.broadcast_to(a, u.shape) * (
-                np.reshape(np.dot(u, a) - c, (len(u), 1))
+        def reflect(u: np.ndarray, w: np.ndarray, a: float) -> np.ndarray:
+            return u - 2 * np.broadcast_to(w, u.shape) * (
+                np.reshape(np.dot(u, w) - a, (len(u), 1))
             )
 
         control_points = np.random.rand(BOARD_SIZE, 2) - 0.5
+
         reflect_control_points = partial(reflect, control_points)
 
         down_reflect = reflect_control_points(np.array([0, 1]), -0.5)
@@ -56,20 +57,20 @@ class Board:
 
     @staticmethod
     def make_border(
-        vertices: np.ndarray, one_cells: Complex
+        points: np.ndarray, edges: Complex
     ) -> Tuple[np.ndarray, Complex, Complex, PSet[Cycle], PSet[Cycle]]:
         def first_index(array: np.ndarray, value: np.ndarray) -> float:
             return next(
                 i for i, _ in enumerate(array) if np.linalg.norm(value - _) < EPSILON
             )
 
-        first_index_vertices = partial(first_index, vertices)
+        first_index_points = partial(first_index, points)
 
         corners = v(v(-0.5, 0.5), v(-0.5, -0.5), v(0.5, -0.5), v(0.5, 0.5))
 
-        ul, dl, dr, ur = pipe(corners, map(np.array), map(first_index_vertices))
+        ul, dl, dr, ur = pipe(corners, map(np.array), map(first_index_points))
 
-        max_ind = len(vertices)
+        max_ind = len(points)
 
         cul = max_ind
         cdl = max_ind + 1
@@ -84,16 +85,18 @@ class Board:
         red_base_cs = s(left_c, right_c)
         blue_base_cs = s(up_c, down_c)
 
-        def border_edges(vs: np.ndarray, es: Complex, pos: int, side: float) -> Complex:
+        def border_edges(
+            pts: np.ndarray, es: Complex, coord: int, side: float
+        ) -> Complex:
             return pset(
                 edge
                 for edge in es
                 if all(
-                    np.linalg.norm(vs[point][pos] - side) < EPSILON for point in edge
+                    np.linalg.norm(pts[vert][coord] - side) < EPSILON for vert in edge
                 )
             )
 
-        border_edges_from_square_side = partial(border_edges, vertices, one_cells)
+        border_edges_from_square_side = partial(border_edges, points, edges)
 
         left_faces = faces_from_edges(
             border_edges_from_square_side(0, -0.5) | outer_edges_from_cycle(left_c)
@@ -112,6 +115,6 @@ class Board:
         blue_base = closure(down_faces | up_faces)
 
         border_points = np.array(corners) * BORDER_SCALE
-        aug_points = np.concatenate((vertices, border_points))
+        aug_points = np.concatenate((points, border_points))
 
         return aug_points, blue_base, red_base, blue_base_cs, red_base_cs

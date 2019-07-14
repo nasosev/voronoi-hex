@@ -31,7 +31,7 @@ def face_from_cycle(c: Cycle) -> Complex:
 
 
 def faces_from_edges(es: Complex) -> Complex:
-    v0: int = pipe(es, first, first)
+    v0 = pipe(es, first, first)
     return pipe(es, filter(lambda t: v0 not in t), map(lambda t: t | s(v0)), pset)
 
 
