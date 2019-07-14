@@ -18,7 +18,7 @@ def edges_from_cycles(cs: PSet[Cycle]) -> Complex:
     return pipe(cs, map(edges_from_cycle), concat, pset)
 
 
-def zero_cells_from_one_cells(xs: Complex) -> Complex:
+def verts_from_edges(xs: Complex) -> Complex:
     return pipe(xs, concat, map(s), pset)
 
 

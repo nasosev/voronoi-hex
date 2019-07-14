@@ -13,7 +13,7 @@ from topology import (
     edges_from_cycles,
     faces_from_edges,
     outer_edges_from_cycle,
-    zero_cells_from_one_cells,
+    verts_from_edges,
 )
 
 
@@ -46,7 +46,7 @@ class Board:
         )
 
         edges = edges_from_cycles(self.cycles)
-        verts = zero_cells_from_one_cells(edges)
+        verts = verts_from_edges(edges)
 
         self.points, self.blue_base, self.red_base, self.blue_base_cs, self.red_base_cs = self.make_border(
             voronoi.vertices, edges
