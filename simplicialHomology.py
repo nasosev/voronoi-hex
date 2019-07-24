@@ -1,6 +1,6 @@
 # Relative simplicial homology library
 #
-# Copyright (c) 2014-2017, Michael Robinson, Chris Capraro
+# Copyright (c) 2014-2019, Michael Robinson, Chris Capraro
 # Distribution of unaltered copies permitted for noncommercial use only
 # All other uses require express permission of the author
 # This software comes with no warrantees express or implied
@@ -10,7 +10,6 @@ import itertools as it
 import multiprocessing as mp
 import functools as ft
 
-# If you're using Python 2.x you'll need to install the futures module (e.g., pip install futures)
 try:
     import concurrent.futures as th
 except:
