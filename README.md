@@ -14,6 +14,6 @@ This is an implementation of the board game Hex played on a randomly generated V
 
 - The [authors](https://github.com/kb1dds/simplicialHomology) of `simplicialHomology.py` do not permit commercial usage of their code.
 
-  ***
+---
 
-  Written by Nasos Evangelou-Oost, July 2019.
+Copyright (c) 2019 Nasos Evangelou-Oost.
