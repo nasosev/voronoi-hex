@@ -1,10 +1,10 @@
-# voronoi_hex
+# voronoi-hex
 
 ![Screenshot.](screenshot.png)
 
 ## Controls
 
-- left-click to claim territory.
+- left-click to claim territory
 
 ---
 
