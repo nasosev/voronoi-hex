@@ -7,5 +7,4 @@
 - left-click to claim territory
 
 ---
-
-Copyright (c) 2019 Nasos Evangelou-Oost.
+Reference: section 5.12 of ['Elementary applied topology' by Robert Ghrist](https://www2.math.upenn.edu/~ghrist/EAT/EATchapter5.pdf)
